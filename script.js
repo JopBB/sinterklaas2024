@@ -174,7 +174,7 @@ function checkAnswer() {
 		if (answer === quizData[currentQuestion].answer) {
 			if (willGetPointsForThisQuestion) {
 				alert("Goed gedaan! Je kleinzoon is tevreden met het antwoord, en huilt iets minder hard. 2 huilpunten minder!")
-				adjustHuilMeter(2);
+				adjustHuilMeter(-2);
 			} else {
 				alert("Dat antwoord was goed, maar veel te laat! De huilmeter zal nu niet dalen.")
 			}
