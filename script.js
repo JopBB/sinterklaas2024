@@ -1,142 +1,191 @@
-//TODO: js uitsplitsen over verschillende files voor de verschillende html files
-// vervolgens hobby meegeven over de verschillende files heen? Kan dat? 
-
-
-disliked = 0;
-
-function dislike(){
-	if(disliked === 3){
-		alert("Deze jongen kan je toch niet afwijzen?!")
-		return;
+const quizData = [
+	{
+	  question: 'What is the capital of France?',
+	  options: ['Paris', 'London', 'Berlin', 'Madrid'],
+	  answer: 'Paris',
+	},
+	{
+	  question: 'What is the largest planet in our solar system?',
+	  options: ['Mars', 'Saturn', 'Jupiter', 'Neptune'],
+	  answer: 'Jupiter',
+	},
+	{
+	  question: 'Which country won the FIFA World Cup in 2018?',
+	  options: ['Brazil', 'Germany', 'France', 'Argentina'],
+	  answer: 'France',
+	},
+	{
+	  question: 'What is the tallest mountain in the world?',
+	  options: ['Mount Everest', 'K2', 'Kangchenjunga', 'Makalu'],
+	  answer: 'Mount Everest',
+	},
+	{
+	  question: 'Which is the largest ocean on Earth?',
+	  options: [
+		'Pacific Ocean',
+		'Indian Ocean',
+		'Atlantic Ocean',
+		'Arctic Ocean',
+	  ],
+	  answer: 'Pacific Ocean',
+	},
+	{
+	  question: 'What is the chemical symbol for gold?',
+	  options: ['Au', 'Ag', 'Cu', 'Fe'],
+	  answer: 'Au',
+	},
+	{
+	  question: 'Who painted the Mona Lisa?',
+	  options: [
+		'Pablo Picasso',
+		'Vincent van Gogh',
+		'Leonardo da Vinci',
+		'Michelangelo',
+	  ],
+	  answer: 'Leonardo da Vinci',
+	},
+	{
+	  question: 'Which planet is known as the Red Planet?',
+	  options: ['Mars', 'Venus', 'Mercury', 'Uranus'],
+	  answer: 'Mars',
+	},
+	{
+	  question: 'What is the largest species of shark?',
+	  options: [
+		'Great White Shark',
+		'Whale Shark',
+		'Tiger Shark',
+		'Hammerhead Shark',
+	  ],
+	  answer: 'Whale Shark',
+	},
+	{
+	  question: 'Which animal is known as the King of the Jungle?',
+	  options: ['Lion', 'Tiger', 'Elephant', 'Giraffe'],
+	  answer: 'Lion',
+	},
+  ];
+  
+  const quizContainer = document.getElementById('quiz');
+  const resultContainer = document.getElementById('result');
+  const submitButton = document.getElementById('submit');
+  const retryButton = document.getElementById('retry');
+  const showAnswerButton = document.getElementById('showAnswer');
+  
+  let currentQuestion = 0;
+  let score = 0;
+  let incorrectAnswers = [];
+  
+  function shuffleArray(array) {
+	for (let i = array.length - 1; i > 0; i--) {
+	  const j = Math.floor(Math.random() * (i + 1));
+	  [array[i], array[j]] = [array[j], array[i]];
 	}
-	var currentCardNumber = disliked+1
-	var nextCardNumber = disliked+2
-	var currentCard = $(".card"+currentCardNumber);
-	var nextCard = $(".card"+nextCardNumber);
-	var currentNope = $(".nope"+currentCardNumber)
-
-	currentNope.css("display", "inline-block")
-	setTimeout(function(){
-		currentCard.css("display", "none")
-		nextCard.css("display", "inline-block")
-		disliked++;
-	}, 2000)
-
-}
-
-function like(){
-	if(disliked === 3){
-		like = $(".like");
-		like.css("display", "inline-block")
-		setTimeout(function(){
-			window.location.assign('messages.html')
-		}, 2000)
-	}else{
-		alert("Weet je dit zeker? Misschien komt je droomman nog wel later voorbij")
+  }
+  
+  function displayQuestion() {
+	const questionData = quizData[currentQuestion];
+  
+	const questionElement = document.createElement('div');
+	questionElement.className = 'question';
+	questionElement.innerHTML = questionData.question;
+  
+	const optionsElement = document.createElement('div');
+	optionsElement.className = 'options';
+  
+	const shuffledOptions = [...questionData.options];
+	shuffleArray(shuffledOptions);
+  
+	for (let i = 0; i < shuffledOptions.length; i++) {
+	  const option = document.createElement('label');
+	  option.className = 'option';
+  
+	  const radio = document.createElement('input');
+	  radio.type = 'radio';
+	  radio.name = 'quiz';
+	  radio.value = shuffledOptions[i];
+  
+	  const optionText = document.createTextNode(shuffledOptions[i]);
+  
+	  option.appendChild(radio);
+	  option.appendChild(optionText);
+	  optionsElement.appendChild(option);
 	}
-}
-
-
-messageCounter=0
-gesprekAfgerond=false;
-raadsel1=false;
-raadsel2=false;
-laatstehartje=false;
-
-function sendMessage(){
-	var input = $("#userInput");
-	var message = $(".imessage");
-	var newMessage = "<p class='from-me'>" + input.val() + "</p>"
-	var inputval = input.val();
-	var hartjelevel = $("#hartjelevel");
-	var hartjeicon = $("#hartjeicon")
-
-	message.append(newMessage);
-	$(".imessage").scrollTop($(".imessage").height()+1000);
-
-	if(laatstehartje){
-		if(input.val().toLowerCase().includes("leuk") || input.val().toLowerCase().includes("knap") || input.val().toLowerCase().includes("mooi") || input.val().toLowerCase().includes("grappig") || input.val().toLowerCase().includes("fijn")){
-			hartjelevel.html("4/4");
-			hartjeicon.css("color","red");
-			setTimeout(function(){
-				message.append("<p class='from-them'>Ooh, ik moet er helemaal van blozen... Ik zal je helpen met het vinden van je cadeau! Zoek in de wijnkast, daar kan je hemt vast vinden!</p>")
-				$(".imessage").scrollTop($(".imessage").height()+1000);
-			},3000)
-		}
+  
+	quizContainer.innerHTML = '';
+	quizContainer.appendChild(questionElement);
+	quizContainer.appendChild(optionsElement);
+  }
+  
+  function checkAnswer() {
+	const selectedOption = document.querySelector('input[name="quiz"]:checked');
+	if (selectedOption) {
+	  const answer = selectedOption.value;
+	  if (answer === quizData[currentQuestion].answer) {
+		score++;
+	  } else {
+		incorrectAnswers.push({
+		  question: quizData[currentQuestion].question,
+		  incorrectAnswer: answer,
+		  correctAnswer: quizData[currentQuestion].answer,
+		});
+	  }
+	  currentQuestion++;
+	  selectedOption.checked = false;
+	  if (currentQuestion < quizData.length) {
+		displayQuestion();
+	  } else {
+		displayResult();
+	  }
 	}
-
-	if(raadsel1 && !raadsel2 && !laatstehartje){
-		if(input.val().toLowerCase().includes("schiphol")){
-			setTimeout(function(){
-				message.append("<p class='from-them'>Ooh ja! Goed gevonden, dankjewel!</p>")
-				$(".imessage").scrollTop($(".imessage").height()+1000);
-				hartjelevel.html("2/4");
-				hartjeicon.css("color","pink");
-				setTimeout(function(){
-					alert("Je hebt Jouke goed geholpen, hij vindt je weer wat leuker!")
-					message.append("<p class='from-them'>Ik ben bijna bij het schip aangekomen, maar ik loop nu tegen nog een probleempje aan... Ik weet niet zeker of ik het schip wel op kom. Aan het schip hangt een laddertje van drie meter lengte met om de 20 cm een sport. Als het eb is, steken er acht sporten uit het water. Bij vloed stijgt het water met 1.65 meter. Het is nu vloed, en ik weet niet zeker of ik wel op de boot kom. Kan jij anders alvast even uitrekenen: hoeveel sporten er tijdens vloed nog boven het water uitkomen?</p>")
-					$(".imessage").scrollTop($(".imessage").height()+1000);
-					raadsel2=true;
-				},2000)
-			},3000)
-		}else{
-			setTimeout(function(){
-				message.append("<p class='from-them'>Nee, het lijkt me niet dat ik via \""+inputval+"\" bij het schip kan komen! Probeer het nog eens?</p>")
-				$(".imessage").scrollTop($(".imessage").height()+1000);
-			},3000)
-		}
-	}else if(raadsel1 && raadsel2 && !laatstehartje){
-		if(input.val().includes("8") || input.val().toLowerCase().includes("acht")){
-			setTimeout(function(){
-				message.append("<p class='from-them'>Ooh... tuurlijk! Ik kan het schip op! Je bent de beste! Dankjewel!</p>")
-				$(".imessage").scrollTop($(".imessage").height()+1000);
-				hartjelevel.html("3/4")
-				hartjeicon.css("color","#ff5f79");
-				setTimeout(function(){
-					message.append("<p class='from-them'>Het schip is geblust dankzij jouw hulp!</p>");
-					$(".imessage").scrollTop($(".imessage").height()+1000);
-					alert("Jouke vindt je behoorlijk leuk inmiddels... Hoe zou je het laatste stukje van z'n hart kunnen veroveren?");
-					laatstehartje = true;
-				},2000)
-			},3000)
-		}else{
-			setTimeout(function(){
-				message.append("<p class='from-them'>Ik geloof niet dat dat klopt! Probeer het nog eens?</p>")
-				$(".imessage").scrollTop($(".imessage").height()+1000);
-			},3000)
-		}
+  }
+  
+  function displayResult() {
+	quizContainer.style.display = 'none';
+	submitButton.style.display = 'none';
+	retryButton.style.display = 'inline-block';
+	showAnswerButton.style.display = 'inline-block';
+	resultContainer.innerHTML = `You scored ${score} out of ${quizData.length}!`;
+  }
+  
+  function retryQuiz() {
+	currentQuestion = 0;
+	score = 0;
+	incorrectAnswers = [];
+	quizContainer.style.display = 'block';
+	submitButton.style.display = 'inline-block';
+	retryButton.style.display = 'none';
+	showAnswerButton.style.display = 'none';
+	resultContainer.innerHTML = '';
+	displayQuestion();
+  }
+  
+  function showAnswer() {
+	quizContainer.style.display = 'none';
+	submitButton.style.display = 'none';
+	retryButton.style.display = 'inline-block';
+	showAnswerButton.style.display = 'none';
+  
+	let incorrectAnswersHtml = '';
+	for (let i = 0; i < incorrectAnswers.length; i++) {
+	  incorrectAnswersHtml += `
+		<p>
+		  <strong>Question:</strong> ${incorrectAnswers[i].question}<br>
+		  <strong>Your Answer:</strong> ${incorrectAnswers[i].incorrectAnswer}<br>
+		  <strong>Correct Answer:</strong> ${incorrectAnswers[i].correctAnswer}
+		</p>
+	  `;
 	}
-	if(messageCounter<1 && input.val().split(" ").length > 5){
-		setTimeout(function(){
-			message.append("<p class='from-them'>Haha, zelden zo'n goede openingszin gehoord!</p>")
-			hartjelevel.html("1/4")
-			hartjeicon.css("color","#fbe2e6");
-			$(".imessage").scrollTop($(".imessage").height()+1000);
-			setTimeout(function(){
-				alert("Jouke vond je opmerking grappig, en hij vindt je daardoor een beetje leuker. Verover Jouke's hart (rechstbovenin) om je cadeautje te vinden!")
-				message.append("<p class='from-them'>Kan ik je ergens mee helpen?</p>")
-				$(".imessage").scrollTop($(".imessage").height()+1000);
-				messageCounter++;
-			},3500)
-		},2000)
-	}else if(!raadsel1 && !raadsel2 && (input.val().toLowerCase().includes('cadeau') || input.val().toLowerCase().includes('kado')  )){
-		setTimeout(function(){
-			message.append("<p class='from-them'>Ik kan je helpen je cadeau te vinden! Maar ik heb eerst wat hulp nodig...</p>")
-			$(".imessage").scrollTop($(".imessage").height()+1000);
-			setTimeout(function(){
-				message.append("<p class='from-them'>Ik moet een schip blussen, maar ik weet niet hoe ik er moet komen. Weet jij hoe ik er kan komen? Ik heb deze hint gekregen:</p>")
-				message.append("<img src='./images/boot.jpg'>")
-				raadsel1=true;
-				setTimeout(function(){
-					$(".imessage").scrollTop($(".imessage").height()+1000);
-				},200)
-			},5000)
-		},2000)
-	}
-	input.val('')
-	$(".imessage").scrollTop($(".imessage").height()+1000);
-}	
-
-function saveProfile(){
-	window.location.assign('index.html');
-}
+  
+	resultContainer.innerHTML = `
+	  <p>You scored ${score} out of ${quizData.length}!</p>
+	  <p>Incorrect Answers:</p>
+	  ${incorrectAnswersHtml}
+	`;
+  }
+  
+  submitButton.addEventListener('click', checkAnswer);
+  retryButton.addEventListener('click', retryQuiz);
+  showAnswerButton.addEventListener('click', showAnswer);
+  
+  displayQuestion();
