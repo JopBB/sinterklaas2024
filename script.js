@@ -81,7 +81,6 @@ var audio = new Audio('sounds/cry/1.mp3');
 var bar;
 audio.volume = 0;
 audio.loop = true;
-audio.play();
 
 document.addEventListener("DOMContentLoaded", function (event) {
 
@@ -106,7 +105,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
 });
 
 function adjustHuilMeter(delta) {
+	var oldHuilmeter = huilmeter;
 	huilmeter = huilmeter + delta;
+	if(huilmeter>0 && oldHuilmeter === 0){
+		audio.play();
+	}
+
 	if (huilmeter < 0) {
 		huilmeter = 0;
 	}
@@ -132,7 +136,6 @@ function displayQuestion() {
 	makeNewProgressBar();
 
 	const questionData = quizData[currentQuestion];
-	console.log('current question' + currentQuestion)
 
 	const questionElement = document.createElement('div');
 	questionElement.className = 'question';
@@ -180,9 +183,13 @@ function checkAnswer() {
 			adjustHuilMeter(2);
 		}
 		if (huilmeter > 9) {
-			alert("Oei, de huilmeter zit op z'n maximum! Dat lijkt me niet helemaal superoma. Probeer het nog een keer om superoma te worden!")
-			retryQuiz();
-			return;
+			setTimeout(() => {
+				alert("Oei, de huilmeter zit op z'n maximum! Dat lijkt me niet helemaal superoma. Probeer het nog een keer om superoma te worden!")
+				retryQuiz();
+				return;
+			}, "50");
+
+
 		}
 		currentQuestion++;
 		selectedOption.checked = false;
@@ -209,15 +216,15 @@ function retryQuiz() {
 }
 
 
-function makeNewProgressBar(){
+function makeNewProgressBar() {
 	bar = new ProgressBar.Line('.container');
-		bar.animate(1, {
-			duration: 5000
-		}, function () {
-			alert("Oeps, niet snel genoeg. Dat betekent huilen!");
-			adjustHuilMeter(2)
-			willGetPointsForThisQuestion = false;
-		});
+	bar.animate(1, {
+		duration: 5000
+	}, function () {
+		alert("Oeps, niet snel genoeg. Dat betekent huilen!");
+		adjustHuilMeter(2)
+		willGetPointsForThisQuestion = false;
+	});
 }
 
 
@@ -248,7 +255,7 @@ function useSuperpower(superpower) {
 		document.getElementById(superpower).style.display = 'none';
 		adjustHuilMeter(delta);
 
-	} 
+	}
 
 	makeNewProgressBar();
 
