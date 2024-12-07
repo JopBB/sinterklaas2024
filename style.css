@@ -2,18 +2,46 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: #b9b3a9;
-  display: flex;
-  justify-content: center;
+  background: #cfcdc9;
+}
+.huilmeter{
+	position:absolute;
+	top:5px;
+	right:5px;
 }
 
+.huilmeter span{
+	font-size: 24pt;
+}
+
+.superpowers{
+	padding: 20px;
+	margin-top: 10px;
+	background-color: #fff;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	border-radius: 20px;
+}
+
+.superpowerWrapper{
+	display: flex;
+	justify-content: space-evenly
+}
+
+.superpower{
+	font-size:24pt;
+}
+
+
 .container {
-  width: 450px;
   padding: 20px;
   margin-top: 80px;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
+}
+
+svg{
+	margin-top:10px;
 }
 
 h1 {

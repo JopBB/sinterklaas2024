@@ -1,36 +1,56 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		    <meta charset="utf-8">
-    	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
 
-		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
-		<link rel="stylesheet" type="text/css" href="style.css">
-		<link
-			href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,500&display=swap"
-			rel="stylesheet"
-		/>
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
-		/>
-		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		 <script src="https://cdn.rawgit.com/kimmobrunfeldt/progressbar.js/0.5.6/dist/progressbar.js"></script>
-		 <script type="text/javascript" src="script.js"></script>
-	</head>
-	<body>
-		<div class="container">
-			
-			<div class="content">
-				<h2>Ben jij een superoma?</h2>
-				<div id="quiz"></div>
-				<div id="result" class="result"></div>
-				<button id="start" class="button">Start</button>
-				<button id="submit" class="button hide">Oké</button>
-				<button id="retry" class="button hide">Retry</button>
-				<button id="showAnswer" class="button hide">Show Answer</button>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,500&display=swap"
+		rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdn.rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+</head>
+
+<body>
+	<div class="huilmeter">
+		<span id="huilmeterEmoji">&#128546;</span>
+		<span id="huilmetertext"></span>
+	</div>
+
+	<div class="container">
+
+		<div class="content">
+			<h2>Ben jij een superoma?</h2>
+			<div id="quiz"></div>
+			<div id="result" class="result"></div>
+			<button id="start" class="button">Start</button>
+			<button id="submit" class="button hide">Oké</button>
+			<button id="retry" class="button hide">Retry</button>
+			<button id="showAnswer" class="button hide">Show Answer</button>
+		</div>
+	</div>
+
+	<div class="superpowers">
+		<h3>Superkrachten</h3>
+		<div class="superpowerWrapper">
+			<div class="superpower" id="flesje" onclick="useSuperpower(this.id)">
+				&#127868
+			</div>
+
+			<div class="superpower" id="boertje" onclick="useSuperpower(this.id)">
+				&#129306
+			</div>
+
+			<div class="superpower" id="wandeling" onclick="useSuperpower(this.id)">
+				&#128694
 			</div>
 		</div>
-	</body>
+	</div>
+</body>
+
 </html>
