@@ -5,65 +5,65 @@ const quizData = [
 		answer: '150ml per kilo',
 	},
 	{
-		question: 'Vraag 2',
-		options: ['X', 'Y', 'Z', 'ZZ'],
-		answer: 'Jupiter',
+		question: 'Hoeveel babies worden eigenlijk op de uitgerekende datum geboren?',
+		options: ['3%', '4%', '5%', '6%'],
+		answer: '4%',
 	},
 	{
-		question: 'Which country won the FIFA World Cup in 2018?',
-		options: ['Brazil', 'Germany', 'France', 'Argentina'],
-		answer: 'France',
+		question: 'Vast heel lekker, die moedermelk, maar hoeveel smaakpapillen hebben pasgeboren babies eigenlijk?',
+		options: ['150', '250', '10000', '100000'],
+		answer: '10000',
 	},
 	{
-		question: 'What is the tallest mountain in the world?',
-		options: ['Mount Everest', 'K2', 'Kangchenjunga', 'Makalu'],
-		answer: 'Mount Everest',
+		question: 'Vanaf wanneer kan je de nagels knippen van een baby?',
+		options: ['Direct', 'Na 1 week', 'Na 4 maanden', 'Nooit, je moet het vijlen'],
+		answer: 'Na 4 maanden',
 	},
 	{
-		question: 'Which is the largest ocean on Earth?',
+		question: 'Wanneer begint een baby met tranen huilen?',
 		options: [
-			'Pacific Ocean',
-			'Indian Ocean',
-			'Atlantic Ocean',
-			'Arctic Ocean',
+			'Na 2 weken',
+			'Na 3 weken',
+			'Na anderhalve maand',
+			'Nooit, echte mannen huilen niet',
 		],
-		answer: 'Pacific Ocean',
+		answer: 'Na 3 weken',
 	},
 	{
-		question: 'What is the chemical symbol for gold?',
-		options: ['Au', 'Ag', 'Cu', 'Fe'],
-		answer: 'Au',
+		question: 'Hoeveel luiers zijn er gemiddeld in totaal doorheen gegaan als een kind 4 jaar is?',
+		options: ['1600', '4200', '7300', 'Veel te veel'],
+		answer: '7300',
 	},
 	{
-		question: 'Who painted the Mona Lisa?',
+		question: 'Waarom hebben babies vaak de hik?',
 		options: [
-			'Pablo Picasso',
-			'Vincent van Gogh',
-			'Leonardo da Vinci',
-			'Michelangelo',
+			'Zo vergroten ze de inhoud van hun longen.',
+			'Het middenrif kan het te snel drinken nog niet aan',
+			'Om ademhalingsspieren te ontwikkelen',
+			'Worden ze ontspannen van',
 		],
-		answer: 'Leonardo da Vinci',
+		answer: 'Om ademhalingsspieren te ontwikkelen',
 	},
 	{
-		question: 'Which planet is known as the Red Planet?',
-		options: ['Mars', 'Venus', 'Mercury', 'Uranus'],
-		answer: 'Mars',
+		question: 'Wat moet je NIET doen als een baby de hik heeft?',
+		options: ['Zachtjes tegen de rug drukken', 'Een speentje geven', 'Rechtop zetten', 'Ondersteboven houden'],
+		answer: 'Ondersteboven houden',
 	},
 	{
-		question: 'What is the largest species of shark?',
+		question: 'Hoe groot is de maag van een pasgeboren bayby?',
 		options: [
-			'Great White Shark',
-			'Whale Shark',
-			'Tiger Shark',
-			'Hammerhead Shark',
+			'Zo groot als een pijnboompit',
+			'Zo groot als een druif',
+			'Zo groot als een citroen',
+			'Zo groot als een watermeloen',
 		],
-		answer: 'Whale Shark',
+		answer: 'Zo groot als een druif',
 	},
 	{
-		question: 'Which animal is known as the King of the Jungle?',
-		options: ['Lion', 'Tiger', 'Elephant', 'Giraffe'],
-		answer: 'Lion',
-	},
+		question: 'Wat moet je in ieder geval NIET doen om obstipatie te verhelpen bij een kind',
+		options: ['Buik masseren', 'Niks, kan vanzelf over gaan', 'Laxeermiddel toedienen', 'Beentjes bewegen'],
+		answer: 'Laxeermiddel toedienen',
+	}
 ];
 
 var huilmeter = 0;
@@ -124,6 +124,12 @@ function adjustHuilMeter(delta) {
 
 function displayStart() {
 	quizContainer.innerHTML = '<p>Ben jij een superoma? Houd je kleinkind tevreden tijdens deze quiz door de vragen zo snel mogelijk goed te beantwoorden! Als dat niet lukt, zal je kleinkind in huilen uitbarsten!</p><p>Rechtsboven zie je de huilmeter. Hoe hoger hij komt, hoe harder je kleinkind zal huilen. Beantwoord de vragen goed, of zet onderstaande superkrachten in om de huilmeter in bedwang te houden.</p>'
+}
+
+function displayResult(){
+	document.getElementById('title').innerHTML = 'Hoera! Gefeliciteerd!'
+	document.getElementById('huilmeterEmoji').innerHTML = '&#128515;'
+	quizContainer.innerHTML = '<p>Jij bent echt een superoma!</p><p>Je hebt een medaille en een cadeautje verdiend!</p>'
 }
 
 function startQuiz() {
@@ -219,7 +225,7 @@ function retryQuiz() {
 function makeNewProgressBar() {
 	bar = new ProgressBar.Line('.container');
 	bar.animate(1, {
-		duration: 5000
+		duration: 8000
 	}, function () {
 		alert("Oeps, niet snel genoeg. Dat betekent huilen!");
 		adjustHuilMeter(2)
