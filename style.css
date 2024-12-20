@@ -109,6 +109,8 @@ h1 {
 
   /* enables scrolling for tall modals */
   overflow: auto;
+
+
 }
 
 .jw-modal.open {
@@ -118,6 +120,8 @@ h1 {
 .jw-modal-body {
   padding: 20px;
   background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
 }
 
 body.jw-modal-open {

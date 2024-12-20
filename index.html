@@ -34,26 +34,70 @@
 			<button id="showAnswer" class="button hide">Show Answer</button>
 		</div>
 		
-		<div id="puntenErbijModal" class="jw-modal">
+		<div id="puntenErafModal" class="jw-modal">
             <div class="jw-modal-body">
                 <h1>Goed gedaan! Je kleinzoon is tevreden met het antwoord, en huilt iets minder hard. 2 huilpunten minder!</h1>
-                <button onclick="closeModal()">Close</button>
+                <button class="button" onclick="closeModalAndNextQuestion()">Oke</button>
             </div>
         </div>
 
 		<div id="telaatModal" class="jw-modal">
             <div class="jw-modal-body">
-                <h1>A custom modal popup</h1>
-                <button onclick="closeModal()">Close</button>
+                <h1>Oeps, niet snel genoeg. Dat betekent huilen!</h1>
+                <button class="button" onclick="closeModal()">Oke</button>
             </div>
         </div>
 
-		<div id="puntenErafModal" class="jw-modal">
+		<div id="puntenErbijModal" class="jw-modal">
             <div class="jw-modal-body">
-                <h1>A custom modal popup</h1>
-                <button onclick="closeModal()">Close</button>
+                <h2>Dat antwoord was helaas niet goed... Je kleinzoon is hier niet blij mee, en huilt weer wat harder! 2 huilpunten erbij!</h2>
+                <button class="button" onclick="closeModalAndNextQuestion()">Oke</button>
             </div>
         </div>
+
+		<div id="verlorenModal" class="jw-modal">
+            <div class="jw-modal-body">
+                <h1>Oei, de huilmeter zit op z'n maximum! Dat lijkt me niet helemaal superoma. Probeer het nog een keer om superoma te worden!</h1>
+                <button class="button" onclick="closeModalAndRestart()">Oke</button>
+            </div>
+        </div>
+
+		<div id="goedMaarTeLaatModal" class="jw-modal">
+            <div class="jw-modal-body">
+                <h1>Dat antwoord was goed, maar veel te laat! De huilmeter zal nu niet dalen.</h1>
+                <button class="button" onclick="closeModalAndNextQuestion()">Oke</button>
+            </div>
+        </div>
+
+		<div id="huilmeterTeLaagModal" class="jw-modal">
+            <div class="jw-modal-body">
+                <h1>De huilmeter is nog niet hoog genoeg om een superkracht te kunnen gebruiken.</h1>
+                <button class="button" onclick="closeModalAndNewProgressBar()">Oke</button>
+            </div>
+        </div>
+
+
+		<div id="flesjeModal" class="jw-modal">
+            <div class="jw-modal-body">
+                <h1>Je geeft hem een flesje, dat kalmeert hem een beetje. 2 punten op de huilmeter eraf!</h1>
+                <button class="button" onclick="closeModalAndNewProgressBar()">Oke</button>
+            </div>
+        </div>
+
+		<div id="wandelingModal" class="jw-modal">
+            <div class="jw-modal-body">
+                <h1>Je gaat een stukje met hem wandelen. Dat vindt 'ie geweldig, het scheelt wel 3 huilpunten!</h1>
+                <button class="button" onclick="closeModalAndNewProgressBar()">Oke</button>
+            </div>
+        </div>
+
+		<div id="boertjeModal" class="jw-modal">
+            <div class="jw-modal-body">
+                <h1>Je klopt hem eens goed op z'n rug. Er zat duidelijk iets vast. 1 huilpunt op de huilmeter minder!</h1>
+                <button class="button" onclick="closeModalAndNewProgressBar()">Oke</button>
+            </div>
+        </div>
+
 
 
 	</div>

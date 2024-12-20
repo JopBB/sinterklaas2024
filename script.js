@@ -179,37 +179,40 @@ function displayQuestion() {
 }
 
 function checkAnswer() {
-	const selectedOption = document.querySelector('input[name="quiz"]:checked');
+	bar.destroy();
+	selectedOption = document.querySelector('input[name="quiz"]:checked');
 	if (selectedOption) {
-		const answer = selectedOption.value;
+		answer = selectedOption.value;
 		if (answer === quizData[currentQuestion].answer) {
 			if (willGetPointsForThisQuestion) {
-				alert("Goed gedaan! Je kleinzoon is tevreden met het antwoord, en huilt iets minder hard. 2 huilpunten minder!")
+				openModal('puntenErafModal');
 				adjustHuilMeter(-2);
 			} else {
-				alert("Dat antwoord was goed, maar veel te laat! De huilmeter zal nu niet dalen.")
+				openModal('goedMaarTeLaatModal')
 			}
 		} else {
-			alert("Dat antwoord was helaas niet goed... Je kleinzoon is hier niet blij mee, en huilt weer wat harder! 2 huilpunten erbij!")
+			openModal('puntenErbijModal');
 			adjustHuilMeter(2);
 		}
-		if (huilmeter > 9) {
-			setTimeout(() => {
-				alert("Oei, de huilmeter zit op z'n maximum! Dat lijkt me niet helemaal superoma. Probeer het nog een keer om superoma te worden!")
-				retryQuiz();
-				return;
-			}, "50");
+
+	}
+}
+
+function nextQuestion(){
+	if (huilmeter > 9) {
+		setTimeout(() => {
+			openModal('verlorenModal');
+			return;
+		}, "50");
 
 
-		}
-		currentQuestion++;
-		selectedOption.checked = false;
-		bar.destroy();
-		if (currentQuestion < quizData.length) {
-			displayQuestion();
-		} else {
-			displayResult();
-		}
+	}
+	currentQuestion++;
+	selectedOption.checked = false;
+	if (currentQuestion < quizData.length) {
+		displayQuestion();
+	} else {
+		displayResult();
 	}
 }
 
@@ -232,7 +235,7 @@ function makeNewProgressBar() {
 	bar.animate(1, {
 		duration: 8000
 	}, function () {
-		alert("Oeps, niet snel genoeg. Dat betekent huilen!");
+		openModal('telaatModal')
 		adjustHuilMeter(2)
 		willGetPointsForThisQuestion = false;
 	});
@@ -246,30 +249,25 @@ function useSuperpower(superpower) {
 	var delta = 0
 	bar.destroy();
 	if (huilmeter < 2) {
-		alert("De huilmeter is nog niet hoog genoeg om een superkracht te kunnen gebruiken")
-		makeNewProgressBar();
+		openModal('huilmeterTeLaagModal')
 		return;
 	}
 	if (confirm("Je kan elke superkracht maar 1x gebruiken. Weet je zeker dat je de " + superpower + "-superkracht wil gebruiken?")) {
 		if (superpower === 'flesje') {
-			alert("Je geeft hem een flesje, dat kalmeert hem een beetje. 2 punten op de huilmeter eraf!")
+			openModal('flesjeModal')
 			delta = -2;
 		}
 		if (superpower === 'wandeling') {
-			alert("Je gaat een stukje met hem wandelen. Dat vindt 'ie geweldig, het scheelt wel 3 huilpunten!")
+			openModal('wandelingModal')
 			delta = -3;
 		}
 		if (superpower === 'boertje') {
-			alert("Er zat duidelijk iets vast. 1 huilpunt op de huilmeter minder!")
+			openModal('boertjeModal')
 			delta = -1;
 		}
 		document.getElementById(superpower).style.display = 'none';
 		adjustHuilMeter(delta);
-
 	}
-
-	makeNewProgressBar();
-
 }
 
 
@@ -280,10 +278,28 @@ function openModal(id) {
     document.body.classList.add('jw-modal-open');
 }
 
+function closeModal(){
+	document.querySelector('.jw-modal.open').classList.remove('open');
+    document.body.classList.remove('jw-modal-open');
+}
+
 // close currently open modal
-function closeModal() {
+function closeModalAndNextQuestion() {
     document.querySelector('.jw-modal.open').classList.remove('open');
     document.body.classList.remove('jw-modal-open');
+	nextQuestion();
+}
+
+function closeModalAndRestart(){
+	document.querySelector('.jw-modal.open').classList.remove('open');
+    document.body.classList.remove('jw-modal-open');
+	retryQuiz();
+}
+
+function closeModalAndNewProgressBar(){
+	document.querySelector('.jw-modal.open').classList.remove('open');
+    document.body.classList.remove('jw-modal-open');
+	makeNewProgressBar();
 }
 
 window.addEventListener('load', function() {
