@@ -127,6 +127,11 @@ function displayStart() {
 }
 
 function displayResult(){
+	audio.pause();
+	var laughAudio = new Audio('sounds/laugh/1.mp3')
+	laughAudio.volume = 1;
+	laughAudio.loop = true;
+	laughAudio.play();
 	document.getElementById('title').innerHTML = 'Hoera! Gefeliciteerd!'
 	document.getElementById('huilmeterEmoji').innerHTML = '&#128515;'
 	quizContainer.innerHTML = '<p>Jij bent echt een superoma!</p><p>Je hebt een medaille en een cadeautje verdiend!</p>'
