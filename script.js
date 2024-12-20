@@ -91,6 +91,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 	resultContainer = document.getElementById('result');
 	submitButton = document.getElementById('submit');
 	startButton = document.getElementById('start');
+	superpowers = document.getElementById('superpowers')
 	retryButton = document.getElementById('retry');
 	showAnswerButton = document.getElementById('showAnswer');
 
@@ -132,13 +133,17 @@ function displayResult(){
 	laughAudio.volume = 1;
 	laughAudio.loop = true;
 	laughAudio.play();
+	submitButton.style.display = 'none';
+	superpowers.style.display = 'none';
+
 	document.getElementById('title').innerHTML = 'Hoera! Gefeliciteerd!'
 	document.getElementById('huilmeterEmoji').innerHTML = '&#128515;'
-	quizContainer.innerHTML = '<p>Jij bent echt een superoma!</p><p>Je hebt een medaille en een cadeautje verdiend!</p>'
+	quizContainer.innerHTML = '<p>Jij bent echt een superoma!</p><p>Je hebt wel een cadeautje verdiend!</p>'
 }
 
 function startQuiz() {
 	submitButton.style.display = 'inline-block';
+	superpowers.style.display = 'inherit'
 	startButton.style.display = 'none';
 	displayQuestion();
 }
