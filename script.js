@@ -263,6 +263,10 @@ function useSuperpower(superpower) {
 		}
 		if (superpower === 'boertje') {
 			openModal('boertjeModal')
+			let burpAudio = new Audio('sounds/burp.mp3')
+			burpAudio.loop=false;
+			burpAudio.volume=1;
+			burpAudio.play();
 			delta = -1;
 		}
 		document.getElementById(superpower).style.display = 'none';
