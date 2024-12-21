@@ -252,12 +252,12 @@ function makeNewProgressBar() {
 
 function useSuperpower(superpower) {
 	var delta = 0
-	bar.destroy();
 	if (huilmeter < 2) {
 		openModal('huilmeterTeLaagModal')
 		return;
 	}
 	if (confirm("Je kan elke superkracht maar 1x gebruiken. Weet je zeker dat je de " + superpower + "-superkracht wil gebruiken?")) {
+		bar.destroy();
 		if (superpower === 'flesje') {
 			openModal('flesjeModal')
 			delta = -2;
